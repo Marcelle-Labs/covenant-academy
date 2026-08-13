@@ -1,0 +1,32 @@
+{
+  "people": [
+    {
+      "id": "abba",
+      "spokenName": "Abba",
+      "roles": ["narrator"],
+      "pronouns": "he/him",
+      "voicePolicy": "recorded-only",
+      "pronunciation": "AH-bah",
+      "notes": "The only narrating voice. arc.md: 'Abba, as himself. No guide character.' COV-79 sets family voice as formation doctrine, so a cleared bundle must carry a real recording; synthesis is permitted only in an uncleared pacing prototype."
+    },
+    {
+      "id": "quinn",
+      "spokenName": "Quinn",
+      "roles": ["primary-listener"],
+      "pronouns": "she/her",
+      "age": { "years": 6, "asOf": "2026-08-09" },
+      "voicePolicy": "never-synthesized",
+      "pronunciation": null,
+      "notes": "Age is the single source for anything that scales to her: vocabulary, and any narration that uses her age as a unit of measure. Confirm it at the start of each feast cycle rather than trusting the last recorded value."
+    },
+    {
+      "id": "samantha",
+      "spokenName": "Samantha",
+      "roles": ["listener", "reviewer"],
+      "pronouns": "she/her",
+      "voicePolicy": "never-synthesized",
+      "pronunciation": null,
+      "notes": "The appropriateness gate and the depth-layer check (arc.md section 3). Hears the same tracks as Quinn, at the adult reading. Does not narrate."
+    }
+  ]
+}

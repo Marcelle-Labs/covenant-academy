@@ -1,0 +1,36 @@
+{
+  "cast": [
+    {
+      "id": "the-king",
+      "spokenName": "the King",
+      "appearsAs": "described",
+      "pronouns": "He/His",
+      "attestedIn": [
+        {
+          "file": "series/sukkot/arc.md",
+          "jsonPath": "Through-line",
+          "claim": "The arc's through-line is stated as 'The King wants to be with His family.' Capitalised pronouns are the spec's own usage."
+        },
+        {
+          "file": "series/sukkot/arc.md",
+          "jsonPath": "T4 — \"And He put His tent right in the middle\"",
+          "claim": "T4 is the hinge: 'He came and stayed in a tent too — right in the middle.' Named but never voiced."
+        }
+      ],
+      "notes": "Described, never voiced. arc.md: 'No guide character. Cast appears as described, not voiced.' T4's note adds: do not explain this track — the pause does the work."
+    },
+    {
+      "id": "the-wilderness-family",
+      "spokenName": "the family",
+      "appearsAs": "described",
+      "attestedIn": [
+        {
+          "file": "series/sukkot/arc.md",
+          "jsonPath": "T3 — \"The people who lived in tents\"",
+          "claim": "T3's surface reading: 'A long time ago the family lived in tents while they walked to a new home.'"
+        }
+      ],
+      "notes": "Collective, not an individual. Referred to as 'the family' or 'our family' so the listener is inside it rather than hearing about strangers."
+    }
+  ]
+}
