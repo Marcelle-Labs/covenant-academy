@@ -4,9 +4,58 @@ The semantic truth of the Academy: who the household is, which figures the
 stories may name, and the editorial writing itself — what the child hears.
 
 This is **not** a production runtime. Nothing here executes, builds, or ships.
-Production (ElevenLabs narration, captions, packaging, the Yoto pipeline) lives
-in the sibling `demo-studio` repo, which reaches into this tree read-only
-through an explicit manifest contract.
+No `package.json`, no framework, no generated media, no deploy configuration.
+
+## The three-repo split
+
+This repo is one of three. Each answers a different question, and none of them
+owns the other two's truth.
+
+```text
+                     covenant-academy
+                    semantic/editorial truth
+                            │
+                ┌───────────┴───────────┐
+                ▼                       ▼
+          demo-studio            covenant-academy-web
+        media production          experience runtime
+                │                       │
+          audio / captions          Astro shell
+          validated media           React islands
+          Yoto packaging       child/family/parent UX
+                └───────────┬───────────┘
+                            ▼
+                     child experience
+```
+
+| Repo | Answers | Must not own |
+| --- | --- | --- |
+| `covenant-academy` | What is true? What may be said? Who is speaking? | runtime code, generated media, provider config, deploys |
+| `demo-studio` | How is approved spoken content produced and packaged? | curriculum authorship, canonical character truth |
+| `covenant-academy-web` | How does the family encounter approved material? | invented theology, canonical scripts, provider config |
+
+**Academy authors. Director produces. Web presents.**
+
+Both consumers reach into this tree **read-only** through an explicit manifest
+contract — Director through `product-lock.json`, Web through
+`academy-lock.json`. Each pins the commit of this repo it was locked against.
+Neither keeps a copy of `canon/` or `series/`: there is exactly one copy of each
+canon file, and it is this one.
+
+### What that means for the web runtime
+
+`covenant-academy-web` never crawls `series/**/script.md` and renders what it
+finds. This tree deliberately holds drafts carrying the
+`DRAFT — NOT PARENT APPROVED` marker, and **editorial existence here is not
+child-facing clearance**. The web runtime consumes only a cleared projection:
+
+```text
+Academy content → source + policy validation → artifact review → web-visible catalog
+```
+
+That distinction is the same one the editing rules below draw between entity
+permission (`voicePolicy`, `finalRequirement`) and artifact state
+(`narrationMode`, `childFacingCleared`). It holds across repo boundaries too.
 
 ## Layout
 
@@ -40,7 +89,7 @@ An episode directory is what a Director production points `evidenceRoot` at, so
 the file inside it is always `script.md`. The episode's own title lives in the
 directory name and in the script's frontmatter, never in the filename.
 
-## The contract
+## The Director contract
 
 A Director production declares this repo as its canon source in its
 `product-lock.json`:
@@ -61,6 +110,33 @@ production was locked against. There is exactly one copy of each canon file —
 this one. Director keeps no synchronized copies, and `studio validate` fails
 if a declared registry is missing or a duplicate survives in the legacy
 group directory.
+
+## The Web contract
+
+`covenant-academy-web` declares this repo as its editorial source in its
+`academy-lock.json`, following the same pattern — explicit path, pinned source
+revision, explicit allowed inputs:
+
+```json
+{
+  "academyRoot": "../covenant-academy",
+  "academyCommit": "<git commit>",
+  "contentManifest": "<path to the cleared projection>",
+  "allowedInputs": {
+    "canon": ["canon/people.json", "canon/cast.json"],
+    "series": []
+  }
+}
+```
+
+`academyCommit` anchors the commit of this repo the runtime was locked against.
+`allowedInputs` is declared for provenance; listing a path there is **not**
+permission to render its contents to a child. The runtime reads only
+`contentManifest`, and while that is null it renders empty rather than falling
+back to this tree — the fallback is exactly how a draft would reach a child.
+
+The lock is deliberately not a glob. Coupling to `covenant-academy/**/*` would
+bind the runtime to this repo's filesystem instead of to a contract.
 
 ## Editing rules
 
