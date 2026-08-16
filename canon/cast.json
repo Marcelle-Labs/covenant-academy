@@ -31,6 +31,55 @@
         }
       ],
       "notes": "Collective, not an individual. Referred to as 'the family' or 'our family' so the listener is inside it rather than hearing about strangers."
+    },
+    {
+      "id": "nia",
+      "spokenName": "Nia",
+      "appearsAs": "voiced",
+      "pronouns": "she/her",
+      "pronunciation": "NEE-ah",
+      "canonicalAge": 8,
+      "language": "en",
+      "voiceAlias": "nia-companion",
+      "voicePolicy": "synthetic-prototype-only",
+      "finalRequirement": "family_recorded",
+      "relationships": [
+        {
+          "with": "abba",
+          "registry": "people",
+          "kind": "complementary-perspective",
+          "claim": "Distinct voice and distinct role. Abba narrates; Nia wonders inside the scene. Never the same alias, never the same performer."
+        },
+        {
+          "with": "quinn",
+          "registry": "people",
+          "kind": "companion",
+          "claim": "Sideways, not downward. Nia wonders alongside the listener; she does not quiz, correct, or instruct her."
+        }
+      ],
+      "attestedIn": [
+        {
+          "file": "canon/nia.md",
+          "jsonPath": "1. Identity",
+          "claim": "Authored original character: child companion, canonical age 8, voice alias 'nia-companion', not the narrator. Age is fixed canon rather than a dated observation, because she does not grow between cycles."
+        },
+        {
+          "file": "canon/nia.md",
+          "jsonPath": "2. Cultural identity",
+          "claim": "Jamaican and Haitian family roots, carried by character rather than accent. Patois and Haitian Creole are not defaults and may only appear where wording is sourced or family-approved. Inventing either is forbidden."
+        },
+        {
+          "file": "canon/nia.md",
+          "jsonPath": "6. Narrative safety",
+          "claim": "A companion lens, not a historical witness. She may wonder, notice, remember, and connect; she may not claim presence at a biblical event or state a theological conclusion, absent an explicitly authored imaginative framing."
+        },
+        {
+          "file": "canon/nia.md",
+          "jsonPath": "7. Voice canon",
+          "claim": "Editorial voice intent only. 'synthetic-prototype-only' means every synthetic take of Nia is a pacing prototype and none is ever child-facing cleared; per COV-79 the final requirement is family_recorded."
+        }
+      ],
+      "notes": "Voiced, unlike the described figures above — she is the first cast member who speaks, which is why multi-voice scripts now carry a frontmatter alias map and speaker labels (README, 'Multi-voice scripts'). Attested to a canon brief rather than to series material because she was authored here, not retold from a source. Her first and only appearance is the long-form pilot at series/nia-story-specials/miriam-watch-by-the-water/, which is pending parent review; she is not to be inserted retroactively into any earlier track. Fields here are entity permissions, true of her in every track; narrationMode and childFacingCleared are artifact state and live in a script's frontmatter. 'nia-companion' is an editorial alias only. Director resolves it to a provider and a voice, and only Director knows which."
     }
   ]
 }

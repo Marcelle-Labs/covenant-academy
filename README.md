@@ -14,11 +14,31 @@ through an explicit manifest contract.
 canon/
   people.json        the real household: roles, voice policy, dated ages
   cast.json          story figures, each attested to a committed document
+  nia.md             character brief for the recurring child companion
 series/
   sukkot/
     arc.md           the twelve-track arc spec (curriculum)
     script.md        the authored narration beats the child hears
+  school-start/
+    2026-08-13-thursday-am/
+      script.md      one dated daily track, authored per morning
+  nia-story-specials/
+    arc.md           the long-form experiment's spec
+    miriam-watch-by-the-water/
+      script.md      Pilot 01 — the first two-voice track
 ```
+
+A feast arc, a daily track, and a story special are shaped differently. An arc
+is one curriculum spanning many tracks, so `sukkot/` holds an `arc.md` beside a
+single script. The school-start series is a run of separate mornings with no
+shared arc spec, so each track gets its own dated directory and stands alone.
+The story specials are long single episodes that do share a spec, so
+`nia-story-specials/` keeps an `arc.md` at the series root and gives each
+episode its own named directory — the two shapes composed, not a third one.
+
+An episode directory is what a Director production points `evidenceRoot` at, so
+the file inside it is always `script.md`. The episode's own title lives in the
+directory name and in the script's frontmatter, never in the filename.
 
 ## The contract
 
@@ -47,10 +67,68 @@ group directory.
 - `canon/people.json` holds personal detail about real people, one of them a
   child. Ages are dated observations (`{ years, asOf }`), re-confirmed each
   feast cycle — never birth dates.
-- `canon/cast.json` introduces nothing: every figure cites where it is
-  attested in a committed document. A figure without a citation is an
-  invention and fails validation on the Director side.
-- Neither file ever enters a delivery bundle.
-- `series/sukkot/script.md` carries the `DRAFT — NOT PARENT APPROVED` marker
-  until `review.childFacingCleared` flips true on the Director side. Clearance
+- `canon/cast.json` is the source of truth for narrative characters, and it
+  introduces nothing: every figure cites where it is attested in a committed
+  document. A figure without a citation is an invention and fails validation on
+  the Director side. Retold figures cite the series material they were retold
+  into. An authored original — a recurring companion who was never retold from a
+  source — cites a canon character brief beside these registries instead
+  (`canon/nia.md`). The citation requirement does not relax; only the document
+  it points at differs.
+- Neither registry ever enters a delivery bundle.
+- Voice aliases (`qwynn-narrator`, `nia-companion`) are stable editorial
+  identifiers, kebab-case, and unique across both registries. Canon and scripts
+  name a voice only by alias; provider voice ids, model choices, and synthesis
+  settings live in Director and never appear here. Character canon is not
+  synthesis configuration.
+- Cultural language — Hebrew, Patois, Haitian Creole, anything a household or
+  a family speaks — is retrieved or family-approved before it is written. An
+  unretrieved wording stays unwritten. A plausible substitute is an invention.
+- **Entity permission is not artifact state.** `voicePolicy` says what a person
+  or character is permitted to use and `finalRequirement` says what must be true
+  of the final child-facing artifact — both are properties of the entity, and
+  both live in the canon registries. `narrationMode` and `childFacingCleared`
+  describe how one recording is being produced right now, and live in that
+  script's frontmatter. A track can move from prototype to cleared without
+  anything in `canon/` changing. Do not collapse the two vocabularies into one
+  enum; they answer different questions.
+
+## Multi-voice scripts
+
+A track with more than one voice declares its aliases in frontmatter, then
+labels each speaker in the body:
+
+```yaml
+voices:
+  narrator: qwynn-narrator
+  nia: nia-companion
+```
+
+```md
+### Beat 3 — The Little Path
+
+**NARRATOR**
+
+There was one more path behind the trees.
+
+*Direction: warm, close, unhurried.*
+
+**NIA**
+
+Wait. Did you see that?
+
+*Direction: curious; excitement beginning to rise.*
+```
+
+Academy says **who** speaks and gives human performance direction. Director maps
+each alias to a provider voice and translates direction into whatever tags or
+settings that provider wants. Provider tag syntax never appears in a script —
+write `*Direction: curious*`, not `[curious]`. The notation stays readable to a
+parent, and stays portable if the provider ever changes.
+- Every `script.md` carries the `DRAFT — NOT PARENT APPROVED` marker until
+  `review.childFacingCleared` flips true on the Director side. Clearance
   requires `parent_approved` status and `family_recorded` narration.
+- Scripts carry no provider voice ids, synthesis settings, secret configuration,
+  or generated media. A script names its narrator by alias (`qwynn-narrator`);
+  Director resolves that alias to a provider and a voice, and only Director
+  knows which.
